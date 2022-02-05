@@ -35,18 +35,18 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            Debug.Log("Win");
-            gameManager.EndGameTrigger();
-            gameManager.LevelSuccessTrigger();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("Fail");
-            gameManager.EndGameTrigger();
-            gameManager.LevelFailTrigger();
-        }
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    Debug.Log("Win");
+        //    gameManager.EndGameTrigger();
+        //    gameManager.LevelSuccessTrigger();
+        //}
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    Debug.Log("Fail");
+        //    gameManager.EndGameTrigger();
+        //    gameManager.LevelFailTrigger();
+        //}
     }
 
     private void OnDisable()

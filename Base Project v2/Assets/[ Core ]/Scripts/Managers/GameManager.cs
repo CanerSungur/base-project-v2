@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
     internal UIManager uiManager;
     internal LevelManager levelManager;
 
-    public GameState GameState { get; private set; }
-    public GameEnd GameEnd { get; private set; }
+    public static GameState GameState { get; private set; }
+    public static GameEnd GameEnd { get; private set; }
 
     public event Action OnGameStart, OnGameEnd, OnLevelSuccess, OnLevelFail, OnChangeScene;
 

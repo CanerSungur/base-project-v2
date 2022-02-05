@@ -30,9 +30,9 @@ public class LevelManager : MonoBehaviour
 
     private void ChangeScene()
     {
-        if (gameManager.GameEnd == GameEnd.Fail)
+        if (GameManager.GameEnd == GameEnd.Fail)
             sceneTransition.LoadLevel(currentLevel);
-        else if (gameManager.GameEnd == GameEnd.Win)
+        else if (GameManager.GameEnd == GameEnd.Win)
             sceneTransition.LoadLevel(GetSceneBuildIndexToBeLoaded());
 
         //if (sceneTransition == null)
