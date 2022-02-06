@@ -6,14 +6,21 @@ public class Player : MonoBehaviour
     internal Animator animator;
     internal Collider coll;
     internal Rigidbody rb;
-
+    
     [Header("-- SCRIPT REFERENCES --")]
     internal PlayerInput playerInput;
-    internal PlayerMovement playerMovement;
-    internal PhysicsHover hover;
+    internal PlayerCollision playerCollision;
+
+    [Header("-- MOVEMENT SCRIPT REFERENCES --")]
+    internal PlayerRBMovement playerRBMovement;
+    internal PlayerChrMovement playerChrMovement;
+    internal PlayerAnimMovement playerAnimMovement;
 
     [Header("-- MOVEMENT SETUP --")]
-    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float maxMovementSpeed = 3f;
+    [SerializeField] private float minMovementSpeed = 1f;
+    [SerializeField, Range(0.1f, 3f)] private float accelerationRate = 0.5f;
+    private float currentMovementSpeed = 1f;
     [SerializeField] private float turnSmoothTime = 0.5f;
     [SerializeField] private float jumpForce = 50f;
     [SerializeField] private float jumpCooldown = 2f;
@@ -24,35 +31,57 @@ public class Player : MonoBehaviour
 
     #region Properties
 
-    public float MovementSpeed { get { return movementSpeed; } }
-    public float TurnSmoothTime { get { return turnSmoothTime; } }
-    public float JumpForce { get { return jumpForce; } }
-    public float JumpCooldown { get { return jumpCooldown; } }
+    public float CurrentMovementSpeed => currentMovementSpeed;
+    public float TurnSmoothTime => turnSmoothTime;
+    public float JumpForce => jumpForce;
+    public float JumpCooldown => jumpCooldown;
+    public Vector3 AirVelocity { get; set; }
+    public Vector3 CurrentVelocity => IsGrounded ? rb.velocity : AirVelocity;
 
     // Controls
-    public bool IsControllable { get { return GameManager.GameState == GameState.Started; } }
-    public bool IsMoving { get { return playerInput.InputValue.magnitude > 0.1f; } }
-    public bool IsGrounded { get { return Physics.Raycast(coll.bounds.center, Vector3.down, coll.bounds.extents.y + groundedHeightLimit, groundLayerMask); } }
-    public bool CanJump { get { return IsControllable && IsGrounded; } }
+    public bool IsControllable => GameManager.GameState == GameState.Started;
+    public bool IsMoving => playerInput.InputValue.magnitude > 0.1f;
+    public bool IsGrounded => Physics.Raycast(coll.bounds.center, Vector3.down, coll.bounds.extents.y + groundedHeightLimit, groundLayerMask) && !playerInput.JumpPressed;
+    public bool CanJump => IsControllable && IsGrounded;
 
     #endregion
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
-        playerMovement = GetComponent<PlayerMovement>();
-        hover = GetComponent<PhysicsHover>();
-
         animator = GetComponent<Animator>();
         coll = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+
+        playerInput = GetComponent<PlayerInput>();
+        playerCollision = GetComponent<PlayerCollision>();
+
+        TryGetComponent(out playerRBMovement);
+        TryGetComponent(out playerChrMovement);
+        TryGetComponent(out playerAnimMovement);
+
+        currentMovementSpeed = minMovementSpeed;
+    }
+
+    private void Start()
+    {
+        playerCollision.OnHitSomethingBack += () => currentMovementSpeed = minMovementSpeed;
+    }
+
+    private void OnDisable()
+    {
+        playerCollision.OnHitSomethingBack -= () => currentMovementSpeed = minMovementSpeed;
     }
 
     private void Update()
     {
         if (!IsMoving && IsGrounded) rb.velocity = Vector3.zero;
 
-        Debug.Log("Is Moving: " + IsMoving);
-        Debug.Log("Is Grounded: " + IsGrounded);
+        if (IsMoving)
+            currentMovementSpeed = Mathf.MoveTowards(currentMovementSpeed, maxMovementSpeed, accelerationRate * Time.deltaTime);
+        else
+            currentMovementSpeed = minMovementSpeed;
+
+        //Debug.Log("Is Moving: " + IsMoving);
+        //Debug.Log("Is Grounded: " + IsGrounded);
     }
 }

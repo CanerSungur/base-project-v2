@@ -6,8 +6,12 @@ public class PlayerInput : MonoBehaviour
 {
     private Player player;
 
+    [Header("-- INPUT SETUP --")]
+    [SerializeField] private Joystick joystick;
+
     public Vector3 InputValue { get; private set; }
     private bool jumpPressed;
+    public bool JumpPressed => jumpPressed;
 
     private float timer;
 
@@ -30,7 +34,6 @@ public class PlayerInput : MonoBehaviour
             jumpPressed = true;
         }
 
-
         if (jumpPressed)
         {
             timer -= Time.deltaTime;
@@ -42,8 +45,10 @@ public class PlayerInput : MonoBehaviour
         }
 
         if (player.IsControllable)
+        {
             InputValue = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            InputValue = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
+        }
+            
     }
-
-    public void JumpPressedTrigger() => OnJumpPressed?.Invoke();
 }

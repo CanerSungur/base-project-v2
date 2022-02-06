@@ -29,12 +29,12 @@ public class HUDUI : MonoBehaviour
     public void UpdateLevelTrigger(int level) => OnUpdateLevel?.Invoke(level);
     public void UpdateLevelText(int level)
     {
-        Debug.Log("Updated Coin Text");
+        //Debug.Log("Updated Coin Text");
         levelText.text = $"Level {level}";
     }
     public void UpdateCoinText(int coin)
     {
-        Debug.Log("Updated Level Text");
+        //Debug.Log("Updated Level Text");
         coinText.text = coin.ToString();
     }
 }

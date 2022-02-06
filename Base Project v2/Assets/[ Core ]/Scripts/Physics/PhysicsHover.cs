@@ -16,6 +16,7 @@ public class PhysicsHover : MonoBehaviour
     [SerializeField] private float rideHeight = 2.5f;
     [SerializeField] private float rideSpringStrength = 10f;
     [SerializeField] private float rideSpringDamper = 1f;
+    [SerializeField, Range(0.01f, 1f), Tooltip("Percentage of spring force that is applied to the objects under this object.")] private float downwardsAppliedForceRatio = 0.5f;
     private RaycastHit rayHit;
     private bool rayDidHit = false;
     private Vector3 downDir = Vector3.down;
@@ -68,7 +69,7 @@ public class PhysicsHover : MonoBehaviour
             if (hitBody != null)
             {
                 // Force is applied to the object under the character in the opposite direction.
-                hitBody.AddForceAtPosition(rayDir * -springForce, rayHit.point);
+                hitBody.AddForceAtPosition(rayDir * -springForce * downwardsAppliedForceRatio, rayHit.point);
             }
         }
     }
