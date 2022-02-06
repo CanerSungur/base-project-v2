@@ -1,10 +1,12 @@
 using UnityEngine;
+using ZestGames.Utility;
 
 [RequireComponent(typeof(Player), typeof(Rigidbody))]
 public class PlayerRBMovement : MonoBehaviour
 {
     private Player player;
     private float cameraRotationY;
+    [SerializeField] private float jumpForceDelay = 0.5f;
 
     private void Awake()
     {
@@ -14,12 +16,12 @@ public class PlayerRBMovement : MonoBehaviour
 
     private void Start()
     {
-        player.playerInput.OnJumpPressed += DoJump;
+        player.playerInput.OnJumpPressed += () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
     }
 
     private void OnDisable()
     {
-        player.playerInput.OnJumpPressed -= DoJump;
+        player.playerInput.OnJumpPressed -= () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
     }
 
     private void FixedUpdate()

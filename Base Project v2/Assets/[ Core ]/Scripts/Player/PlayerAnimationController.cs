@@ -7,21 +7,67 @@ public class PlayerAnimationController : MonoBehaviour
     private Player player;
 
 	[Header("-- ANIMATION NAME SETUP --")]
-	private readonly int animatorGrounded = Animator.StringToHash("Base Layer.Grounded");
     private readonly int turnID = Animator.StringToHash("Turn");
     private readonly int forwardID = Animator.StringToHash("Forward");
+    private readonly int jumpID = Animator.StringToHash("Jump");
+    private readonly int onGroundID = Animator.StringToHash("OnGround");
 
-	// Extra tweaks for animations
-	const float JumpPower = 5f;     // determines the jump force applied when jumping (and therefore the jump height)
-	const float AirSpeed = 5f;      // determines the max speed of the character while airborne
-	const float AirControl = 2f;    // determines the response speed of controlling the character while airborne
-	const float StationaryTurnSpeed = 180f; // additional turn speed added when the player is stationary (added to animation root rotation)
-	const float MovingTurnSpeed = 360f;     // additional turn speed added when the player is moving (added to animation root rotation)
-	const float RunCycleLegOffset = 0.2f;   // animation cycle offset (0-1) used for determining correct leg to jump off
+    private float turnAmount, forwardAmount;
+    private Transform camTransform;
 
 	private void Awake()
     {
         player = GetComponent<Player>();
-		player.animator.applyRootMotion = false;
+        camTransform = Camera.main.transform;
     }
+
+    private void Start()
+    {
+        player.playerInput.OnJumpPressed += Jump;
+    }
+
+    private void OnDisable()
+    {
+        player.playerInput.OnJumpPressed -= Jump;
+    }
+
+    private void FixedUpdate()
+    {
+        Vector3 camForward = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
+        Vector3 move = player.playerInput.InputValue.z * camForward + player.playerInput.InputValue.x * camTransform.right;
+        if (move.magnitude > 1)
+            move.Normalize();
+
+        ConvertMoveInput(move);
+        UpdateAnimator();
+
+        GroundCheck();
+    }
+
+    private void UpdateAnimator()
+    {
+        player.animator.SetFloat(forwardID, forwardAmount, 0.1f, Time.deltaTime);
+        player.animator.SetFloat(turnID, turnAmount, 0.1f, Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Prepare input movement data for animator
+    /// </summary>
+    private void ConvertMoveInput(Vector3 input)
+    {
+        // convert the world relative moveInput vector into a local-relative
+        // turn amount and forward amount required to head in the desired
+        // direction. 
+        Vector3 localMove = transform.InverseTransformDirection(input);
+        if ((Math.Abs(localMove.x) > float.Epsilon) &
+            (Math.Abs(localMove.z) > float.Epsilon))
+            turnAmount = Mathf.Atan2(localMove.x, localMove.z);
+        else
+            turnAmount = 0f;
+
+        forwardAmount = localMove.z;
+    }
+
+    private void Jump() => player.animator.SetTrigger(jumpID);
+    private void GroundCheck() => player.animator.SetBool(onGroundID, player.IsGrounded);
 }
