@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     [Header("-- GROUNDED SETUP --")]
     [SerializeField, Tooltip("Select layers that you want player to be grounded.")] private LayerMask groundLayerMask;
-    [SerializeField, Tooltip("Height that player will be considered grounded when above groundable layers.")] private float groundedHeightLimit = 0.75f;
+    [SerializeField, Tooltip("Height that player will be considered grounded when above groundable layers.")] private float groundedHeightLimit = 0.1f;
 
     #region Properties
 
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     // Controls
     public bool IsControllable => GameManager.GameState == GameState.Started;
-    public bool IsMoving => playerInput.InputValue.magnitude > 0.1f;
+    public bool IsMoving => playerInput.InputValue.magnitude > 0.05f;
     public bool IsGrounded => Physics.Raycast(coll.bounds.center, Vector3.down, coll.bounds.extents.y + groundedHeightLimit, groundLayerMask) && !playerInput.JumpPressed;
     public bool CanJump => IsControllable && IsGrounded;
 
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         coll = GetComponent<Collider>();
-        rb = GetComponent<Rigidbody>();
+        TryGetComponent(out rb); // Maybe it uses character controller, not rigidbody.
 
         playerInput = GetComponent<PlayerInput>();
         playerCollision = GetComponent<PlayerCollision>();

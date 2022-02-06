@@ -41,6 +41,7 @@ public class PlayerAnimMovement : MonoBehaviour
     private void Awake()
     {
         player = GetComponent<Player>();
+        MultipleMovementScriptConflictCheck();
 
         if (Camera.main == null)
             throw new Exception("No Main Camera Found!");
@@ -55,8 +56,6 @@ public class PlayerAnimMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
         Vector3 camForward = new Vector3(_camTransform.forward.x, 0, _camTransform.forward.z).normalized;
         Vector3 move = player.playerInput.InputValue.z * camForward + player.playerInput.InputValue.x * _camTransform.right;
         Move(move, false, player.playerInput.JumpPressed);
@@ -216,5 +215,11 @@ public class PlayerAnimMovement : MonoBehaviour
         // (typically allowing a small change in trajectory)
         Vector3 airMove = new Vector3(_moveInput.x * AirSpeed, _airVelocity.y, _moveInput.z * AirSpeed);
         _airVelocity = Vector3.Lerp(_airVelocity, airMove, Time.deltaTime * AirControl);
+    }
+
+    private void MultipleMovementScriptConflictCheck()
+    {
+        if (GetComponent<PlayerRBMovement>() != null) throw new System.Exception($"You cannot add PlayerRBMovement script to the {name} object while you have PlayerAnimMovement script attached!");
+        if (GetComponent<PlayerChrMovement>() != null) throw new System.Exception($"You cannot add PlayerChrMovement script to the {name} object while you have PlayerAnimMovement script attached!");
     }
 }

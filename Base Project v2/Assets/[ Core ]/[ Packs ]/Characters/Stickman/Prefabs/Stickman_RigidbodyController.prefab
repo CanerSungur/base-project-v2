@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 4255324550523300039}
   - component: {fileID: 8706130861922899796}
   m_Layer: 0
-  m_Name: Stickman_heads_sphere
+  m_Name: Stickman_RigidbodyController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461,8 +461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac757339a1cd3b41a6f6e4f1fd7ed81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMovementSpeed: 4
-  minMovementSpeed: 0.1
+  maxMovementSpeed: 0.05
+  minMovementSpeed: 0
   accelerationRate: 2
   turnSmoothTime: 0.15
   jumpForce: 7
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b34a874a879dd94d8fa48c05b627e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uprightJointSpringStrength: 20
+  uprightJointSpringStrength: 30
   uprightJointSpringDamper: 1
 --- !u!114 &4255324550523300039
 MonoBehaviour:
@@ -551,6 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d39cba4e55182d4fabafc313063fd28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForceDelay: 0.5
 --- !u!1 &8592876449704463764
 GameObject:
   m_ObjectHideFlags: 0
