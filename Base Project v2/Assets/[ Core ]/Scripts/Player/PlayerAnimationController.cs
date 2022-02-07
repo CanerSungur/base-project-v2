@@ -23,18 +23,18 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        player.playerInput.OnJumpPressed += Jump;
+        player.joystickInput.OnJumpPressed += Jump;
     }
 
     private void OnDisable()
     {
-        player.playerInput.OnJumpPressed -= Jump;
+        player.joystickInput.OnJumpPressed -= Jump;
     }
 
     private void FixedUpdate()
     {
         Vector3 camForward = new Vector3(camTransform.forward.x, 0, camTransform.forward.z).normalized;
-        Vector3 move = player.playerInput.InputValue.z * camForward + player.playerInput.InputValue.x * camTransform.right;
+        Vector3 move = player.joystickInput.InputValue.z * camForward + player.joystickInput.InputValue.x * camTransform.right;
         if (move.magnitude > 1)
             move.Normalize();
 
@@ -69,5 +69,5 @@ public class PlayerAnimationController : MonoBehaviour
     }
 
     private void Jump() => player.animator.SetTrigger(jumpID);
-    private void GroundCheck() => player.animator.SetBool(onGroundID, player.IsGrounded);
+    private void GroundCheck() => player.animator.SetBool(onGroundID, player.IsGrounded());
 }

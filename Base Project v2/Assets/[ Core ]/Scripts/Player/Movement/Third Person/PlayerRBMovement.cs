@@ -16,19 +16,19 @@ public class PlayerRBMovement : MonoBehaviour
 
     private void Start()
     {
-        player.playerInput.OnJumpPressed += () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
+        player.joystickInput.OnJumpPressed += () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
     }
 
     private void OnDisable()
     {
-        player.playerInput.OnJumpPressed -= () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
+        player.joystickInput.OnJumpPressed -= () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
     }
 
     private void FixedUpdate()
     {
         if (!player ) return;
 
-        if (!player.IsControllable || !player.IsMoving) return;
+        if (!player.IsControllable || !player.IsMoving()) return;
         
         cameraRotationY = Camera.main.transform.rotation.eulerAngles.y;
         DoMovement(cameraRotationY);
@@ -37,12 +37,12 @@ public class PlayerRBMovement : MonoBehaviour
 
     private void DoMovement(float cameraRotationY)
     {
-        player.rb.MovePosition(transform.position + Quaternion.Euler(0f, cameraRotationY, 0f) * player.playerInput.InputValue * Time.fixedDeltaTime * player.CurrentMovementSpeed);
+        player.rb.MovePosition(transform.position + Quaternion.Euler(0f, cameraRotationY, 0f) * player.joystickInput.InputValue * Time.fixedDeltaTime * player.CurrentMovementSpeed);
     }
 
     private void DoRotation(float cameraRotationY)
     {
-        Vector3 direction = (Quaternion.Euler(0f, cameraRotationY, 0f) * player.playerInput.InputValue).normalized;
+        Vector3 direction = (Quaternion.Euler(0f, cameraRotationY, 0f) * player.joystickInput.InputValue).normalized;
 
         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x, targetAngle, transform.rotation.eulerAngles.z), player.TurnSmoothTime);

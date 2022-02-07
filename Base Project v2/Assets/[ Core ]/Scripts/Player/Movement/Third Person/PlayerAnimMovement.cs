@@ -36,7 +36,7 @@ public class PlayerAnimMovement : MonoBehaviour
     const float MovingTurnSpeed = 360f;     // additional turn speed added when the player is moving (added to animation root rotation)
     const float RunCycleLegOffset = 0.2f;   // animation cycle offset (0-1) used for determining correct leg to jump off
 
-    private Vector3 charVel => player.IsGrounded ? player.rb.velocity :_airVelocity;
+    private Vector3 charVel => player.IsGrounded() ? player.rb.velocity :_airVelocity;
 
     private void Awake()
     {
@@ -57,8 +57,8 @@ public class PlayerAnimMovement : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 camForward = new Vector3(_camTransform.forward.x, 0, _camTransform.forward.z).normalized;
-        Vector3 move = player.playerInput.InputValue.z * camForward + player.playerInput.InputValue.x * _camTransform.right;
-        Move(move, false, player.playerInput.JumpPressed);
+        Vector3 move = player.joystickInput.InputValue.z * camForward + player.joystickInput.InputValue.x * _camTransform.right;
+        Move(move, false, player.joystickInput.JumpPressed);
         if (move.magnitude > 1)
             move.Normalize();
 
@@ -71,7 +71,7 @@ public class PlayerAnimMovement : MonoBehaviour
         ConvertMoveInput();             // converts the relative move vector into local turn & fwd values
 
         // control and velocity handling is different when grounded and airborne:
-        if (player.IsGrounded)
+        if (player.IsGrounded())
             HandleGroundedVelocities(currentAnimation);
         else
             HandleAirborneVelocities();
@@ -88,7 +88,7 @@ public class PlayerAnimMovement : MonoBehaviour
         Vector3 deltaGravity = Physics.gravity * Time.deltaTime;
         _airVelocity += deltaGravity;
 
-        if (player.IsGrounded)
+        if (player.IsGrounded())
         {
             deltaPos = player.animator.deltaPosition;
             deltaPos.y -= 5f * Time.deltaTime;
@@ -126,7 +126,7 @@ public class PlayerAnimMovement : MonoBehaviour
     private void UpdatePlayerPosition(Vector3 deltaPos)
     {
         Vector3 finalVelocity = deltaPos / Time.deltaTime;
-        if (!player.playerInput.JumpPressed)
+        if (!player.joystickInput.JumpPressed)
         {
             finalVelocity.y = player.rb.velocity.y;
         }
@@ -163,8 +163,8 @@ public class PlayerAnimMovement : MonoBehaviour
         // update the animator parameters
         player.animator.SetFloat(_animatorForward, _forwardAmount, 0.1f, Time.deltaTime);
         player.animator.SetFloat(_animatorTurn, _turnAmount, 0.1f, Time.deltaTime);
-        player.animator.SetBool(_animatorOnGround, player.IsGrounded);
-        if (player.IsGrounded) // if flying
+        player.animator.SetBool(_animatorOnGround, player.IsGrounded());
+        if (player.IsGrounded()) // if flying
             player.animator.SetFloat(_animatorJump, charVel.y);
         else
         {

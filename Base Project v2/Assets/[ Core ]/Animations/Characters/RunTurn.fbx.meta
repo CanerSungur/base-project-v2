@@ -29,24 +29,7 @@ ModelImporter:
       Activate translation DOF on avatar to improve retargeting quality.\n\t'Hips'
       has translation animation that will be discarded.\n\t'Hips' is inbetween humanoid
       transforms and has rotation animation that will be discarded.\n"
-    animationRetargetingWarnings: "\nRetargeting quality report for clip '_30_a_U1_M_P_RunForwardTurnRight_NtrlWide__Fb_Dia3m_No_0_PJ_4':\n\tLeftLowerLeg
-      average position error 1764.2 mm and maximum position error 5047.8 mm at time
-      4:27 (54.4%) Frame 147\n\tLeftFoot average position error 1745.8 mm and maximum
-      position error 4990.9 mm at time 4:28 (54.8%) Frame 148\n\tRightLowerLeg average
-      position error 1712.6 mm and maximum position error 4880.8 mm at time 4:23
-      (53.0%) Frame 143\n\tRightFoot average position error 1731.4 mm and maximum
-      position error 4933.5 mm at time 4:26 (54.1%) Frame 146\n\tLeftUpperArm average
-      position error 1733.9 mm and maximum position error 4921.0 mm at time 4:23
-      (53.0%) Frame 143\n\tLeftLowerArm average position error 1732.9 mm and maximum
-      position error 4931.6 mm at time 4:23 (53.0%) Frame 143\n\tLeftHand average
-      position error 1735.2 mm and maximum position error 4949.0 mm at time 4:22
-      (52.6%) Frame 142\n\tRightUpperArm average position error 1733.9 mm and maximum
-      position error 4921.0 mm at time 4:23 (53.0%) Frame 143\n\tRightLowerArm average
-      position error 1735.1 mm and maximum position error 4931.2 mm at time 4:23
-      (53.0%) Frame 143\n\tRightHand average position error 1736.6 mm and maximum
-      position error 4942.7 mm at time 4:24 (53.3%) Frame 144\n\tHead average position
-      error 1733.9 mm and maximum position error 4921.0 mm at time 4:23 (53.0%) Frame
-      143\n"
+    animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0

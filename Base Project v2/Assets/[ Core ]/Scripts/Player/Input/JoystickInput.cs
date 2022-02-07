@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(Player))]
-public class PlayerInput : MonoBehaviour
+public class JoystickInput : MonoBehaviour
 {
     private Player player;
 
@@ -45,10 +45,6 @@ public class PlayerInput : MonoBehaviour
         }
 
         if (player.IsControllable)
-        {
-            InputValue = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
             InputValue = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
-        }
-            
     }
 }

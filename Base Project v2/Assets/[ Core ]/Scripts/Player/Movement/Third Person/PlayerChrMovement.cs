@@ -32,7 +32,7 @@ public class PlayerChrMovement : MonoBehaviour
 
     private void Update()
     {
-        if (player.IsGrounded && playerVelocity.y < 0f)
+        if (player.IsGrounded() && playerVelocity.y < 0f)
             playerVelocity.y = 0f;
 
         DoMovement();
@@ -40,7 +40,7 @@ public class PlayerChrMovement : MonoBehaviour
 
     private void DoMovement()
     {
-        controller.Move(player.playerInput.InputValue * Time.deltaTime * player.CurrentMovementSpeed);
+        controller.Move(player.joystickInput.InputValue * Time.deltaTime * player.CurrentMovementSpeed);
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
