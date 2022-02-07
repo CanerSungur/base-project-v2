@@ -63,4 +63,4 @@ public enum GameState
     Finished
 }
 
-public enum GameEnd { Fail, Win }
+public enum GameEnd { NotDecided, Fail, Win }

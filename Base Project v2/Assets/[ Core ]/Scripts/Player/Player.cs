@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
 
     // Controls
     public bool IsControllable => GameManager.GameState == GameState.Started;
-    //public bool IsMoving => joystickInput.InputValue.magnitude > 0.05f;
     public bool CanJump => IsControllable && IsGrounded();
 
     #endregion
@@ -75,6 +74,8 @@ public class Player : MonoBehaviour
         currentMovementSpeed = minMovementSpeed;
     }
 
+    private void OnEnable() => CharacterPositionHolder.PlayerInScene = this;
+
     private void Start()
     {
         playerCollision.OnHitSomethingBack += () => currentMovementSpeed = minMovementSpeed;
@@ -89,6 +90,11 @@ public class Player : MonoBehaviour
     {
         if (!IsMoving() && IsGrounded() && rb) rb.velocity = Vector3.zero;
 
+        UpdateCurrentMovementSpeed();
+    }
+
+    private void UpdateCurrentMovementSpeed()
+    {
         if (IsMoving())
             currentMovementSpeed = Mathf.MoveTowards(currentMovementSpeed, maxMovementSpeed, accelerationRate * Time.deltaTime);
         else
