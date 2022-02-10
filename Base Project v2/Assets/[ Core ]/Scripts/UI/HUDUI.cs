@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class HUDUI : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class HUDUI : MonoBehaviour
     [Header("-- TEXT REFERENCES --")]
     [SerializeField] private TextMeshProUGUI coinText;
     [SerializeField] private TextMeshProUGUI levelText;
+
+    [Header("-- COIN SETUP --")]
+    [SerializeField] private Transform coinHUDTransform;
+    public Transform CoinHUDTransform => coinHUDTransform;
 
     public event Action<int> OnUpdateCoin, OnUpdateLevel;
 
@@ -27,14 +32,26 @@ public class HUDUI : MonoBehaviour
 
     public void UpdateCoinTrigger(int coin) => OnUpdateCoin?.Invoke(coin);
     public void UpdateLevelTrigger(int level) => OnUpdateLevel?.Invoke(level);
-    public void UpdateLevelText(int level)
+    private void UpdateLevelText(int level)
     {
         //Debug.Log("Updated Coin Text");
         levelText.text = $"Level {level}";
     }
-    public void UpdateCoinText(int coin)
+    private void UpdateCoinText(int coin)
     {
         //Debug.Log("Updated Level Text");
-        coinText.text = coin.ToString();
+        //coinText.text = coin.ToString();
+        coinText.text = UIManager.GameManager.dataManager.PlayerTotalCoin.ToString();
+
+        ShakeCoinHUD();
+    }
+
+    private void ShakeCoinHUD()
+    {
+        CoinHUDTransform.DORewind();
+
+        CoinHUDTransform.DOShakePosition(.5f, .5f);
+        CoinHUDTransform.DOShakeRotation(.5f, .5f);
+        CoinHUDTransform.DOShakeScale(.5f, .5f);
     }
 }

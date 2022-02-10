@@ -7,13 +7,29 @@ using UnityEngine;
 public class DataManager : MonoBehaviour
 {
     private GameManager gameManager;
+    public GameManager GameManager { get { return gameManager == null ? gameManager = GetComponent<GameManager>() : gameManager; } }
 
     public int PlayerTotalCoin { get; private set; }
 
     private void Awake()
     {
-        gameManager = GetComponent<GameManager>();
+        PlayerTotalCoin = PlayerPrefs.GetInt("TotalCoin", 0);
+    }
 
-        PlayerTotalCoin = 152;
+    private void Start()
+    {
+        GameManager.OnUpdateCoin += UpdateTotalCoin;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnUpdateCoin += UpdateTotalCoin;
+    }
+
+    private void UpdateTotalCoin(int amount)
+    {
+        PlayerTotalCoin += amount;
+        PlayerPrefs.SetInt("TotalCoin", PlayerTotalCoin);
+        PlayerPrefs.Save();
     }
 }

@@ -5,7 +5,8 @@ using ZestGames.Utility;
 public class UIManager : MonoBehaviour
 {
     private GameManager gameManager;
-    
+    public GameManager GameManager { get { return gameManager == null ? gameManager = GetComponent<GameManager>() : gameManager; } }
+
     [Header("-- UI REFERENCES --")]
     [SerializeField] private TouchToStartUI touchToStart;
     [SerializeField] private HUDUI hud;
@@ -18,19 +19,21 @@ public class UIManager : MonoBehaviour
     [SerializeField, Tooltip("The delay in secods between the game is lost and the fail screen is loaded.")] 
     private float failScreenDelay = 3.0f;
 
+    public Transform CoinHUDTransform => hud.CoinHUDTransform;
+
     private void Awake()
     {
-        gameManager = GetComponent<GameManager>();
-
         Init();
     }
 
     private void Start()
     {
-        gameManager.OnGameStart += GameStarted;
-        gameManager.OnGameEnd += GameEnded;
-        gameManager.OnLevelSuccess += LevelSuccess;
-        gameManager.OnLevelFail += LevelFail;
+        GameManager.OnGameStart += GameStarted;
+        GameManager.OnGameEnd += GameEnded;
+        GameManager.OnLevelSuccess += LevelSuccess;
+        GameManager.OnLevelFail += LevelFail;
+
+        GameManager.OnUpdateCoin += hud.UpdateCoinTrigger;
     }
 
     private void Update()
@@ -51,10 +54,12 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        gameManager.OnGameStart -= GameStarted;
-        gameManager.OnGameEnd -= GameEnded;
-        gameManager.OnLevelSuccess -= LevelSuccess;
-        gameManager.OnLevelFail -= LevelFail;
+        GameManager.OnGameStart -= GameStarted;
+        GameManager.OnGameEnd -= GameEnded;
+        GameManager.OnLevelSuccess -= LevelSuccess;
+        GameManager.OnLevelFail -= LevelFail;
+
+        GameManager.OnUpdateCoin -= hud.UpdateCoinTrigger;
     }
 
     private void Init()
@@ -69,8 +74,8 @@ public class UIManager : MonoBehaviour
     private void GameStarted()
     {
         hud.gameObject.SetActive(true);
-        hud.UpdateCoinTrigger(gameManager.dataManager.PlayerTotalCoin);
-        hud.UpdateLevelTrigger(gameManager.levelManager.Level);
+        hud.UpdateCoinTrigger(GameManager.dataManager.PlayerTotalCoin);
+        hud.UpdateLevelTrigger(GameManager.levelManager.Level);
 
         touchToStart.gameObject.SetActive(false);
     }
@@ -80,6 +85,6 @@ public class UIManager : MonoBehaviour
     private void LevelFail() => Utils.DoActionAfterDelay(this, failScreenDelay, () => levelFail.gameObject.SetActive(true));
 
     // Functions for dependant classes
-    public void StartGame() => gameManager.StartGameTrigger();
-    public void ChangeScene() => gameManager.ChangeSceneTrigger();
+    public void StartGame() => GameManager.StartGameTrigger();
+    public void ChangeScene() => GameManager.ChangeSceneTrigger();
 }

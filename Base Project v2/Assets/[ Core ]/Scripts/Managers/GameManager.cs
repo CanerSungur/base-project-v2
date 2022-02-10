@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameEnd GameEnd { get; private set; }
 
     public event Action OnGameStart, OnGameEnd, OnLevelSuccess, OnLevelFail, OnChangeScene;
+    public event Action<int> OnUpdateCoin;
 
     private void Awake()
     {
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     public void LevelSuccessTrigger() => OnLevelSuccess?.Invoke();
     public void LevelFailTrigger() => OnLevelFail?.Invoke();
     public void ChangeSceneTrigger() => OnChangeScene?.Invoke();
+    public void UpdateCoinTrigger(int amount) => OnUpdateCoin?.Invoke(amount);
 }
 
 public enum GameState

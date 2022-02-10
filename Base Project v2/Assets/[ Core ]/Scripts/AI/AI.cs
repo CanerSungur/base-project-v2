@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using ZestGames.Utility;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class AI : MonoBehaviour
@@ -74,6 +73,9 @@ public class AI : MonoBehaviour
         if (!IsMoving && IsGrounded && rb) rb.velocity = Vector3.zero;
 
         UpdateCurrentMovementSpeed();
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            Die();
     }
 
     private void UpdateCurrentMovementSpeed()
@@ -88,5 +90,8 @@ public class AI : MonoBehaviour
     {
         IsDead = true;
         CharacterPositionHolder.RemoveAI(this);
+        CoinManager.SpawnCoinsTrigger(transform.position, 5);
+
+        Utils.DoActionAfterDelay(this, 2f, () => gameObject.SetActive(false));
     }    
 }

@@ -2,7 +2,9 @@ using UnityEngine;
 
 public abstract class CollectableBase : MonoBehaviour, ICollectable
 {
-    [SerializeField, Tooltip("Particle effect for collecting this object.")]protected GameObject collectEffect;
+    [Tooltip("Is this object collectable in scene or rewarded when something happens.")] public CollectableStyle CollectableStyle;
+    [Tooltip("Select movement type of this object when it's collected.")] public CollectStyle CollectStyle;
+    [SerializeField, Tooltip("Particle effect for collecting this object.")] protected GameObject collectEffect;
 
     /// <summary>
     /// If you override this function, write everything you want before base.Collect();
@@ -24,5 +26,11 @@ public abstract class CollectableBase : MonoBehaviour, ICollectable
 
     public abstract void Apply();
 
-    public void Dispose() => Destroy(gameObject);
+    public void Dispose()
+    {
+        if (CollectStyle == CollectStyle.OnSite)
+            Destroy(gameObject);
+    }
 }
+public enum CollectStyle { OnSite, MoveToUI }
+public enum CollectableStyle { Collect, Reward }

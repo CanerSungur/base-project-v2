@@ -53,6 +53,11 @@ public class PlayerCollision : MonoBehaviour
         //Vector3 dir = collisionPoint
 
         //Debug.Log(collision.gameObject.name);
-        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out CollectableBase collectable))
+            collectable.Collect();
     }
 }

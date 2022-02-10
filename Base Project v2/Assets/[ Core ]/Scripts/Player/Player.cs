@@ -22,10 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float maxMovementSpeed = 3f;
     [SerializeField] private float minMovementSpeed = 1f;
     [SerializeField, Range(0.1f, 3f)] private float accelerationRate = 0.5f;
-    private float currentMovementSpeed = 1f;
     [SerializeField] private float turnSmoothTime = 0.5f;
     [SerializeField] private float jumpForce = 50f;
     [SerializeField] private float jumpCooldown = 2f;
+    private float currentMovementSpeed = 1f;
 
     [Header("-- SWERVE MOVEMENT SETUP --")]
     [SerializeField] private float swerveSpeed = 0.5f;
