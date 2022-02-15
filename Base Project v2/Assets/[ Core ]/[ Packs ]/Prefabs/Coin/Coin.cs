@@ -23,7 +23,7 @@ public class Coin : CollectableBase
         if (CollectStyle == CollectStyle.OnSite)
         {
             // Apply instantly.
-            CoinManager.GameManager.UpdateCoinTrigger(Value);
+            CoinManager.GameManager.IncreaseCoinTrigger(Value);
         }
         else if (CollectStyle == CollectStyle.MoveToUI)
         {

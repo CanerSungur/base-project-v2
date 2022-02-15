@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
         GameManager.OnLevelSuccess += LevelSuccess;
         GameManager.OnLevelFail += LevelFail;
 
-        GameManager.OnUpdateCoin += hud.UpdateCoinTrigger;
+        GameManager.OnIncreaseCoin += hud.UpdateCoinUITrigger;
     }
 
     private void Update()
@@ -50,6 +50,11 @@ public class UIManager : MonoBehaviour
         //    gameManager.EndGameTrigger();
         //    gameManager.LevelFailTrigger();
         //}
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GameManager.CalculateRewardTrigger();
+        }
     }
 
     private void OnDisable()
@@ -59,7 +64,7 @@ public class UIManager : MonoBehaviour
         GameManager.OnLevelSuccess -= LevelSuccess;
         GameManager.OnLevelFail -= LevelFail;
 
-        GameManager.OnUpdateCoin -= hud.UpdateCoinTrigger;
+        GameManager.OnIncreaseCoin -= hud.UpdateCoinUITrigger;
     }
 
     private void Init()
@@ -74,15 +79,24 @@ public class UIManager : MonoBehaviour
     private void GameStarted()
     {
         hud.gameObject.SetActive(true);
-        hud.UpdateCoinTrigger(GameManager.dataManager.PlayerTotalCoin);
-        hud.UpdateLevelTrigger(GameManager.levelManager.Level);
+        hud.UpdateCoinUITrigger(GameManager.dataManager.TotalCoin);
+        hud.UpdateLevelUTrigger(GameManager.levelManager.Level);
 
         touchToStart.gameObject.SetActive(false);
     }
 
     private void GameEnded() => hud.gameObject.SetActive(false);
-    private void LevelSuccess() => Utils.DoActionAfterDelay(this, winScreenDelay, () => levelSuccess.gameObject.SetActive(true));
-    private void LevelFail() => Utils.DoActionAfterDelay(this, failScreenDelay, () => levelFail.gameObject.SetActive(true));
+    private void LevelSuccess()
+    {
+        Utils.DoActionAfterDelay(this, winScreenDelay, () => levelSuccess.gameObject.SetActive(true));
+        Utils.DoActionAfterDelay(this, winScreenDelay, () => hud.gameObject.SetActive(false));
+    }
+        
+    private void LevelFail()
+    {
+        Utils.DoActionAfterDelay(this, failScreenDelay, () => levelFail.gameObject.SetActive(true));
+        Utils.DoActionAfterDelay(this, failScreenDelay, () => hud.gameObject.SetActive(false));
+    }
 
     // Functions for dependant classes
     public void StartGame() => GameManager.StartGameTrigger();

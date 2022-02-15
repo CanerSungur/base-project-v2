@@ -47,7 +47,7 @@ public class CoinMovement : MonoBehaviour
             distanceBetweenCamAndPlayer = (CharacterPositionHolder.PlayerInScene.transform.position - cam.transform.position).magnitude;
             coinHUDWorldPos = cam.ScreenToWorldPoint(Coin.CoinManager.CoinHUDTransform.position + new Vector3(-0.5f, 0f, distanceBetweenCamAndPlayer));
             Vector3 dir = coinHUDWorldPos - transform.position;
-            transform.Translate(dir * 2f * Time.deltaTime, Space.World);
+            transform.Translate(dir * Coin.MovementSpeed * Time.deltaTime, Space.World);
             //transform.DOMove(coinHUDWorldPos, Coin.MovementTime).SetEase(Ease.InSine);
             if (!startedRotating)
             {
@@ -66,7 +66,7 @@ public class CoinMovement : MonoBehaviour
             //PlayerStats.OnIncreaseCoin?.Invoke(1);
             
             //HUDUI.UpdateCoinTrigger(value);
-            Coin.CoinManager.GameManager.UpdateCoinTrigger(Coin.Value);
+            Coin.CoinManager.GameManager.IncreaseCoinTrigger(Coin.Value);
             transform.DOScale(0, 0.5f).SetEase(Ease.OutElastic).OnComplete(() => {
 
 

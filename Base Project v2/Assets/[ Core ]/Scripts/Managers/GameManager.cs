@@ -1,6 +1,10 @@
 using UnityEngine;
 using System;
 
+/// <summary>
+/// Manages all the other managers. Holds game flow events.
+/// If there will be a reward, invoke OnCalculateReward instead of OnLevelSuccess.
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     [Header("-- MANAGER REFERENCES --")]
@@ -11,17 +15,14 @@ public class GameManager : MonoBehaviour
     public static GameState GameState { get; private set; }
     public static GameEnd GameEnd { get; private set; }
 
-    public event Action OnGameStart, OnGameEnd, OnLevelSuccess, OnLevelFail, OnChangeScene;
-    public event Action<int> OnUpdateCoin;
+    public event Action OnGameStart, OnGameEnd, OnLevelSuccess, OnLevelFail, OnChangeScene, OnCalculateReward;
+    public event Action<int> OnIncreaseCoin;
 
     private void Awake()
     {
         TryGetComponent(out dataManager);
         TryGetComponent(out uiManager);
         TryGetComponent(out levelManager);
-        //dataManager = GetComponent<DataManager>();
-        //uiManager = GetComponent<UIManager>();
-        //levelManager = GetComponent<LevelManager>();
 
         ChangeState(GameState.WaitingToStart);
     }
@@ -53,7 +54,8 @@ public class GameManager : MonoBehaviour
     public void LevelSuccessTrigger() => OnLevelSuccess?.Invoke();
     public void LevelFailTrigger() => OnLevelFail?.Invoke();
     public void ChangeSceneTrigger() => OnChangeScene?.Invoke();
-    public void UpdateCoinTrigger(int amount) => OnUpdateCoin?.Invoke(amount);
+    public void CalculateRewardTrigger() => OnCalculateReward?.Invoke();
+    public void IncreaseCoinTrigger(int amount) => OnIncreaseCoin?.Invoke(amount);
 }
 
 public enum GameState

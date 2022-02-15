@@ -13,7 +13,7 @@ public class JoystickInput : MonoBehaviour
     private bool jumpPressed;
     public bool JumpPressed => jumpPressed;
 
-    private float timer;
+    private float jumpTimer;
 
     public event Action OnJumpPressed;
 
@@ -21,7 +21,7 @@ public class JoystickInput : MonoBehaviour
     {
         player = GetComponent<Player>();
         jumpPressed = false;
-        timer = player.JumpCooldown;
+        jumpTimer = player.JumpCooldown;
     }
 
     private void Update()
@@ -36,10 +36,10 @@ public class JoystickInput : MonoBehaviour
 
         if (jumpPressed)
         {
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
+            jumpTimer -= Time.deltaTime;
+            if (jumpTimer <= 0f)
             {
-                timer = player.JumpCooldown;
+                jumpTimer = player.JumpCooldown;
                 jumpPressed = false;
             }
         }
