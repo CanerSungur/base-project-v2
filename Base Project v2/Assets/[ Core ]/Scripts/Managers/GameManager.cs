@@ -11,11 +11,12 @@ public class GameManager : MonoBehaviour
     internal DataManager dataManager;
     internal UIManager uiManager;
     internal LevelManager levelManager;
+    internal GameplayManager gameplayManager;
 
     public static GameState GameState { get; private set; }
     public static GameEnd GameEnd { get; private set; }
 
-    public event Action OnGameStart, OnGameEnd, OnLevelSuccess, OnLevelFail, OnChangeScene, OnCalculateReward;
+    public event Action OnGameStart, OnGameEnd, OnLevelSuccess, OnLevelFail, OnChangeScene, OnCalculateReward, OnChangePhase;
     public event Action<int> OnIncreaseCoin;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour
         TryGetComponent(out dataManager);
         TryGetComponent(out uiManager);
         TryGetComponent(out levelManager);
+        TryGetComponent(out gameplayManager);
 
         ChangeState(GameState.WaitingToStart);
     }
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     public void LevelFailTrigger() => OnLevelFail?.Invoke();
     public void ChangeSceneTrigger() => OnChangeScene?.Invoke();
     public void CalculateRewardTrigger() => OnCalculateReward?.Invoke();
+    public void ChangePhaseTrigger() => OnChangePhase?.Invoke();
     public void IncreaseCoinTrigger(int amount) => OnIncreaseCoin?.Invoke(amount);
 }
 

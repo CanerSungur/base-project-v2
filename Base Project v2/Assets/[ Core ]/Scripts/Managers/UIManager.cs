@@ -37,27 +37,6 @@ public class UIManager : MonoBehaviour
         GameManager.OnIncreaseCoin += hud.UpdateCoinUITrigger;
     }
 
-    private void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    Debug.Log("Win");
-        //    gameManager.EndGameTrigger();
-        //    gameManager.LevelSuccessTrigger();
-        //}
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    Debug.Log("Fail");
-        //    gameManager.EndGameTrigger();
-        //    gameManager.LevelFailTrigger();
-        //}
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            GameManager.CalculateRewardTrigger();
-        }
-    }
-
     private void OnDisable()
     {
         GameManager.OnGameStart -= GameStarted;

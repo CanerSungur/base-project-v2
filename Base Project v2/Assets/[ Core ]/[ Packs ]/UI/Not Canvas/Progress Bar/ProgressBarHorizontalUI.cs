@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Use either UpdateProgressBar in Update or SmoothUpdateProgressBar when something happens.
 /// </summary>
-public class ProgressBarUI : MonoBehaviour
+public class ProgressBarHorizontalUI : MonoBehaviour
 {
     [Header("-- REFERENCES --")]
     [SerializeField, Tooltip("Considered as start point or focused object through progression i.e. Player.")] private Transform focusTransform;

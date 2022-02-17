@@ -46,5 +46,7 @@ public class JoystickInput : MonoBehaviour
 
         if (player.IsControllable)
             InputValue = new Vector3(joystick.Horizontal, 0f, joystick.Vertical);
+        else
+            InputValue = Vector3.zero;
     }
 }

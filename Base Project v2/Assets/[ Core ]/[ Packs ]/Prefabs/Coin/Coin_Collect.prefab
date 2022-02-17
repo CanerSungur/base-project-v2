@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4798618488782620187}
   - component: {fileID: 7218523286133965123}
   - component: {fileID: 5031208824877614772}
+  - component: {fileID: -465051831010759842}
   m_Layer: 0
   m_Name: Coin_Collect
   m_TagString: Untagged
@@ -61,10 +62,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectableStyle: 0
   CollectStyle: 0
+  CollectableEffect: 0
   collectEffect: {fileID: 0}
   coinMovement: {fileID: 5031208824877614772}
   value: 1
-  movementSpeed: 2
+  movementSpeed: 3
 --- !u!114 &5031208824877614772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,6 +77,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3214faa089f27dd4b95a537bca7b036a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-465051831010759842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031208824877614778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce47a4777d7b3a4ba2456100cfba4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5265578866715524288

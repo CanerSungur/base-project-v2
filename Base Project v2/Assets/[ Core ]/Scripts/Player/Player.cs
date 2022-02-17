@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
@@ -47,10 +48,14 @@ public class Player : MonoBehaviour
     public Vector3 CurrentVelocity => IsGrounded() ? rb.velocity : AirVelocity;
 
     // Controls
-    public bool IsControllable => GameManager.GameState == GameState.Started;
+    public bool IsControllable => GameManager.GameState == GameState.Started && !IsDead;
     public bool CanJump => IsControllable && IsGrounded();
+    public bool IsDead { get; private set; }
 
     #endregion
+
+    public event Action OnKill;
+    public event Action<CollectableEffect> OnPickedUpSomething;
 
     private void Awake()
     {
@@ -71,6 +76,7 @@ public class Player : MonoBehaviour
         TryGetComponent(out playerAnimMovement);
         TryGetComponent(out swerveMovement);
 
+        IsDead = false;
         currentMovementSpeed = minMovementSpeed;
     }
 
@@ -78,11 +84,15 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        OnKill += () => IsDead = true;
+
         playerCollision.OnHitSomethingBack += () => currentMovementSpeed = minMovementSpeed;
     }
 
     private void OnDisable()
     {
+        OnKill -= () => IsDead = true;
+
         playerCollision.OnHitSomethingBack -= () => currentMovementSpeed = minMovementSpeed;
     }
 
@@ -116,4 +126,7 @@ public class Player : MonoBehaviour
         return joystickInput ? Physics.Raycast(coll.bounds.center, Vector3.down, coll.bounds.extents.y + groundedHeightLimit, groundLayerMask) && !joystickInput.JumpPressed : 
             Physics.Raycast(coll.bounds.center, Vector3.down, coll.bounds.extents.y + groundedHeightLimit, groundLayerMask);
     }
+
+    public void KillTrigger() => OnKill?.Invoke();
+    public void PickUpTrigger(CollectableEffect effect) => OnPickedUpSomething?.Invoke(effect);
 }

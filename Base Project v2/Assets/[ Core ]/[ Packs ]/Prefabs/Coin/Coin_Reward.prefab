@@ -47,10 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollectableStyle: 1
   CollectStyle: 1
+  CollectableEffect: 0
   collectEffect: {fileID: 0}
   coinMovement: {fileID: 525355256040030381}
   value: 1
-  movementSpeed: 2
+  movementSpeed: 3
 --- !u!114 &525355256040030381
 MonoBehaviour:
   m_ObjectHideFlags: 0

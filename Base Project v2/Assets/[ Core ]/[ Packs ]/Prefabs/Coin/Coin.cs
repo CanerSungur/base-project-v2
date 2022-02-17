@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Coin : CollectableBase
 {
-    private CoinManager coinManager;
-    public CoinManager CoinManager { get { return coinManager == null ? coinManager = FindObjectOfType<CoinManager>() : coinManager; } }
-
+    private CollectableManager collectableManager;
+    public CollectableManager CollectableManager { get { return collectableManager == null ? collectableManager = FindObjectOfType<CollectableManager>() : collectableManager; } }
+    
     [Header("-- REFERENCES --")]
     [SerializeField] private CoinMovement coinMovement;
+    private Collider coll;
 
     [Header("-- PROPERTIES --")]
     [SerializeField, Tooltip("Value of this coin. This will be added to Player Coin Amount.")] private int value = 1;
@@ -20,15 +21,23 @@ public class Coin : CollectableBase
 
     public override void Apply()
     {
+        if (coll) coll.enabled = false;
+
         if (CollectStyle == CollectStyle.OnSite)
         {
             // Apply instantly.
-            CoinManager.GameManager.IncreaseCoinTrigger(Value);
+            CollectableManager.GameManager.IncreaseCoinTrigger(Value);
         }
         else if (CollectStyle == CollectStyle.MoveToUI)
         {
             // Activate coin movement to UI.
             coinMovement.StartMovingTrigger();
         }
+    }
+
+    private void OnEnable()
+    {
+        if (TryGetComponent(out coll))
+            coll.enabled = true;
     }
 }

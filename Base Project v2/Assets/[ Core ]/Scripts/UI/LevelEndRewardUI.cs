@@ -35,13 +35,4 @@ public class LevelEndRewardUI : MonoBehaviour
         HUDUI.Animator.enabled = true;
         HUDUI.Animator.SetTrigger(startID);
     }
-
-    // Animation event listener.
-    public void AlertObservers(string message)
-    {
-        if (message.Equals("RewardAnimEnded")) // Level success screen should trigger here.
-            HUDUI.UIManager.GameManager.LevelSuccessTrigger();
-        else if (message.Equals("UpdateCoin"))
-            HUDUI.UpdateCoinUITrigger(HUDUI.UIManager.GameManager.dataManager.TotalCoin);
-    }
 }

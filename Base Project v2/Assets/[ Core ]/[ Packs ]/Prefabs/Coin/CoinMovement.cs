@@ -11,7 +11,6 @@ public class CoinMovement : MonoBehaviour
     private bool triggerMoving = false;
     private bool coinHasReached = false;
     private bool startedRotating = false;
-    private Vector3 coinHUDLockedPos;
     private Vector3 coinHUDWorldPos;
     private float distanceBetweenCamAndPlayer;
     private Camera cam;
@@ -38,6 +37,8 @@ public class CoinMovement : MonoBehaviour
     private void OnDisable()
     {
         OnStartMovement -= StartMoving;
+
+        transform.DOKill();
     }
 
     private void Update()
@@ -45,7 +46,7 @@ public class CoinMovement : MonoBehaviour
         if (triggerMoving)
         {
             distanceBetweenCamAndPlayer = (CharacterPositionHolder.PlayerInScene.transform.position - cam.transform.position).magnitude;
-            coinHUDWorldPos = cam.ScreenToWorldPoint(Coin.CoinManager.CoinHUDTransform.position + new Vector3(-0.5f, 0f, distanceBetweenCamAndPlayer));
+            coinHUDWorldPos = cam.ScreenToWorldPoint(Coin.CollectableManager.CoinHUDTransform.position + new Vector3(-0.5f, 0f, distanceBetweenCamAndPlayer));
             Vector3 dir = coinHUDWorldPos - transform.position;
             transform.Translate(dir * Coin.MovementSpeed * Time.deltaTime, Space.World);
             //transform.DOMove(coinHUDWorldPos, Coin.MovementTime).SetEase(Ease.InSine);
@@ -66,7 +67,7 @@ public class CoinMovement : MonoBehaviour
             //PlayerStats.OnIncreaseCoin?.Invoke(1);
             
             //HUDUI.UpdateCoinTrigger(value);
-            Coin.CoinManager.GameManager.IncreaseCoinTrigger(Coin.Value);
+            Coin.CollectableManager.GameManager.IncreaseCoinTrigger(Coin.Value);
             transform.DOScale(0, 0.5f).SetEase(Ease.OutElastic).OnComplete(() => {
 
 
