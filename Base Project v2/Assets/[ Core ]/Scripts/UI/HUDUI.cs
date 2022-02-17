@@ -24,6 +24,8 @@ public class HUDUI : MonoBehaviour
 
     private void OnEnable()
     {
+        Animator.enabled = false;
+
         OnUpdateCoinUI += UpdateCoinText;
         OnUpdateLevelUI += UpdateLevelText;
     }

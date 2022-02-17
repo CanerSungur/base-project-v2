@@ -3,7 +3,7 @@ using System;
 
 /// <summary>
 /// Manages all the other managers. Holds game flow events.
-/// If there will be a reward, invoke OnCalculateReward instead of OnLevelSuccess.
+/// If there will be a reward when level is finished, invoke OnCalculateReward instead of OnLevelSuccess.
 /// </summary>
 public class GameManager : MonoBehaviour
 {

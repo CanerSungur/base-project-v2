@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private HUDUI hud;
     [SerializeField] private LevelSuccessUI levelSuccess;
     [SerializeField] private LevelFailUI levelFail;
+    [SerializeField] private SettingsUI settings;
 
     [Header("-- UI DELAY SETUP --")]
     [SerializeField, Tooltip("The delay in seconds between the game is won and the win screen is loaded.")] 
@@ -71,6 +72,7 @@ public class UIManager : MonoBehaviour
     {
         touchToStart.gameObject.SetActive(true);
 
+        settings.gameObject.SetActive(false);
         hud.gameObject.SetActive(false);
         levelSuccess.gameObject.SetActive(false);
         levelFail.gameObject.SetActive(false);
@@ -78,6 +80,7 @@ public class UIManager : MonoBehaviour
 
     private void GameStarted()
     {
+        settings.gameObject.SetActive(true);
         hud.gameObject.SetActive(true);
         hud.UpdateCoinUITrigger(GameManager.dataManager.TotalCoin);
         hud.UpdateLevelUTrigger(GameManager.levelManager.Level);
@@ -85,7 +88,11 @@ public class UIManager : MonoBehaviour
         touchToStart.gameObject.SetActive(false);
     }
 
-    private void GameEnded() => hud.gameObject.SetActive(false);
+    private void GameEnded()
+    {
+        settings.gameObject.SetActive(false);
+        hud.gameObject.SetActive(false);
+    }
     private void LevelSuccess()
     {
         Utils.DoActionAfterDelay(this, winScreenDelay, () => levelSuccess.gameObject.SetActive(true));
