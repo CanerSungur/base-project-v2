@@ -19,6 +19,8 @@ public class Trap : CollectableBase
     {
         coll.enabled = false;
 
+        AudioHandler.PlayAudio(AudioHandler.AudioType.Pickup_Trap);
+
         if (CollectStyle == CollectStyle.OnSite)
         {
             // Apply instantly.

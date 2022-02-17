@@ -51,10 +51,11 @@ public class Player : MonoBehaviour
     public bool IsControllable => GameManager.GameState == GameState.Started && !IsDead;
     public bool CanJump => IsControllable && IsGrounded();
     public bool IsDead { get; private set; }
+    public bool IsLanded { get; private set; }
 
     #endregion
 
-    public event Action OnKill;
+    public event Action OnKill, OnJump, OnLand;
     public event Action<CollectableEffect> OnPickedUpSomething;
 
     private void Awake()
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
         TryGetComponent(out swerveMovement);
 
         IsDead = false;
+        IsLanded = true;
         currentMovementSpeed = minMovementSpeed;
     }
 
@@ -85,6 +87,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         OnKill += () => IsDead = true;
+        OnJump += () => IsLanded = false;
+        OnLand += () => IsLanded = true;
 
         playerCollision.OnHitSomethingBack += () => currentMovementSpeed = minMovementSpeed;
     }
@@ -92,6 +96,8 @@ public class Player : MonoBehaviour
     private void OnDisable()
     {
         OnKill -= () => IsDead = true;
+        OnJump -= () => IsLanded = false;
+        OnLand -= () => IsLanded = true;
 
         playerCollision.OnHitSomethingBack -= () => currentMovementSpeed = minMovementSpeed;
     }
@@ -128,5 +134,7 @@ public class Player : MonoBehaviour
     }
 
     public void KillTrigger() => OnKill?.Invoke();
+    public void JumpTrigger() => OnJump?.Invoke();
+    public void LandTrigger() => OnLand?.Invoke();
     public void PickUpTrigger(CollectableEffect effect) => OnPickedUpSomething?.Invoke(effect);
 }

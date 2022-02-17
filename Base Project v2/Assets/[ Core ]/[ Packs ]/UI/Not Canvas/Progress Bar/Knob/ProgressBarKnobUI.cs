@@ -16,14 +16,13 @@ public class ProgressBarKnobUI : MonoBehaviour
 
     private void OnEnable()
     {
-        // Mission over event
-        //EventManager.OnLandCleared.AddListener(UpdateProgressBar);
+        if (!HUDUI.UIManager.GameManager) return;
         HUDUI.UIManager.GameManager.OnChangePhase += EnableRelevantKnob;
     }
 
     private void OnDisable()
     {
-        //EventManager.OnLandCleared.RemoveListener(UpdateProgressBar);
+        if (!HUDUI.UIManager.GameManager) return;
         HUDUI.UIManager.GameManager.OnChangePhase -= EnableRelevantKnob;
     }
 

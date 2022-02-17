@@ -23,6 +23,8 @@ public class Coin : CollectableBase
     {
         if (coll) coll.enabled = false;
 
+        AudioHandler.PlayAudio(AudioHandler.AudioType.Pickup_Coin);
+
         if (CollectStyle == CollectStyle.OnSite)
         {
             // Apply instantly.

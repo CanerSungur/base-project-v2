@@ -15,6 +15,9 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!player.IsLanded)
+            player.LandTrigger();
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")) return;
 
         Vector3 relativePosition = transform.InverseTransformPoint(collision.GetContact(0).point);
@@ -47,7 +50,6 @@ public class PlayerCollision : MonoBehaviour
             //print("The object is behind.");
             OnHitSomethingBack?.Invoke();
         }
-
 
         //Vector3 collisionPoint = collision.GetContact(0).normal;
         //Vector3 dir = collisionPoint

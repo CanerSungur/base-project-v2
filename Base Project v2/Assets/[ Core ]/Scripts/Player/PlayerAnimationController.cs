@@ -23,12 +23,12 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        player.joystickInput.OnJumpPressed += Jump;
+        player.OnJump += Jump;
     }
 
     private void OnDisable()
     {
-        player.joystickInput.OnJumpPressed -= Jump;
+        player.OnJump-= Jump;
     }
 
     private void FixedUpdate()

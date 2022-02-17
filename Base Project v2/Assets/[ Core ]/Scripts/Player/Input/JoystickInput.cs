@@ -15,8 +15,6 @@ public class JoystickInput : MonoBehaviour
 
     private float jumpTimer;
 
-    public event Action OnJumpPressed;
-
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -30,7 +28,7 @@ public class JoystickInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && player.CanJump && !jumpPressed)
         {
-            OnJumpPressed?.Invoke();
+            player.JumpTrigger();
             jumpPressed = true;
         }
 

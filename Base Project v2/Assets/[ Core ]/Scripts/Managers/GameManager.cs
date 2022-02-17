@@ -33,16 +33,28 @@ public class GameManager : MonoBehaviour
     {
         OnGameStart += () => ChangeState(GameState.Started);
         OnGameEnd += () => ChangeState(GameState.Finished);
-        OnLevelSuccess += () => GameEnd = GameEnd.Win;
-        OnLevelFail += () => GameEnd = GameEnd.Fail;
+        OnLevelSuccess += LevelSuccess;
+        OnLevelFail += LevelFail;
     }
 
     private void OnDisable()
     {
         OnGameStart -= () => ChangeState(GameState.Started);
         OnGameEnd -= () => ChangeState(GameState.Finished);
-        OnLevelSuccess -= () => GameEnd = GameEnd.Win;
-        OnLevelFail -= () => GameEnd = GameEnd.Fail;
+        OnLevelSuccess -= LevelSuccess;
+        OnLevelFail -= LevelFail;
+    }
+
+    private void LevelSuccess()
+    {
+        GameEnd = GameEnd.Win;
+        AudioHandler.PlayAudio(AudioHandler.AudioType.Game_Win);
+    }
+
+    private void LevelFail()
+    {
+        GameEnd = GameEnd.Fail;
+        AudioHandler.PlayAudio(AudioHandler.AudioType.Game_Fail);
     }
 
     private void ChangeState(GameState newState)

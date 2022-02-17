@@ -16,12 +16,12 @@ public class PlayerRBMovement : MonoBehaviour
 
     private void Start()
     {
-        player.joystickInput.OnJumpPressed += () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
+        player.OnJump += () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
     }
 
     private void OnDisable()
     {
-        player.joystickInput.OnJumpPressed -= () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
+        player.OnJump -= () => Utils.DoActionAfterDelay(this, jumpForceDelay, DoJump);
     }
 
     private void FixedUpdate()
