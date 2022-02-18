@@ -1,16 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
+using ZestGames.Vibrate;
 
 public class LevelFailUI : MonoBehaviour
 {
     private UIManager uiManager;
     public UIManager UIManager { get { return uiManager == null ? uiManager = FindObjectOfType<UIManager>() : uiManager; } }
 
-    private Button restartButton;
+    private CustomButton restartButton;
 
     private void OnEnable()
     {
-        restartButton = GetComponentInChildren<Button>();
+        if (Vibration.HasVibrator())
+            Vibration.VibratePredefined(1, true);
+
+        restartButton = GetComponentInChildren<CustomButton>();
         restartButton.onClick.AddListener(RestartButtonClicked);
     }
 
@@ -19,10 +23,5 @@ public class LevelFailUI : MonoBehaviour
         restartButton.onClick.RemoveListener(RestartButtonClicked);
     }
 
-    private void RestartButtonClicked()
-    {
-        Debug.Log("Restart Button Clicked!");
-
-        UIManager.ChangeScene();
-    }
+    private void RestartButtonClicked() => restartButton.ClickTrigger(UIManager.ChangeScene);
 }

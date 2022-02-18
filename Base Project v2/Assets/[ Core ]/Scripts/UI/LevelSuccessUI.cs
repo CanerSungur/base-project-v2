@@ -8,25 +8,32 @@ public class LevelSuccessUI : MonoBehaviour
     public UIManager UIManager { get { return uiManager == null ? uiManager = FindObjectOfType<UIManager>() : uiManager; } }
 
     private TextMeshProUGUI levelText;
-    private Button nextButton;
+
+    private CustomButton nextButton;
 
     private void OnEnable()
     {
         levelText = transform.GetChild(transform.childCount - 1).GetComponentInChildren<TextMeshProUGUI>();
         levelText.text = "Level " + (UIManager.GameManager.levelManager.Level - 1); // -1 because level is increased immediately on level success.
-        nextButton = GetComponentInChildren<Button>();
+        
+        //nextButton = GetComponentInChildren<Button>();
+        //nextButton.onClick.AddListener(NextButtonClicked);
+
+        nextButton = GetComponentInChildren<CustomButton>();
         nextButton.onClick.AddListener(NextButtonClicked);
     }
 
     private void OnDisable()
     {
+        //nextButton.onClick.RemoveListener(NextButtonClicked);
+
         nextButton.onClick.RemoveListener(NextButtonClicked);
     }
 
-    private void NextButtonClicked()
-    {
-        Debug.Log("Next Button Clicked!");
+    private void NextButtonClicked() => nextButton.ClickTrigger(UIManager.ChangeScene);
 
-        UIManager.ChangeScene();
-    }
+    //private void NextButtonClicked()
+    //{
+    //    UIManager.ChangeScene();
+    //}
 }

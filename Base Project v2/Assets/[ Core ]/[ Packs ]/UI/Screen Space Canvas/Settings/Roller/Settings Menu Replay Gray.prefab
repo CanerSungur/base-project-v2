@@ -1488,7 +1488,7 @@ GameObject:
   - component: {fileID: 5263263038820673892}
   - component: {fileID: 1752058768}
   m_Layer: 5
-  m_Name: Settings Menu Replay Canvas
+  m_Name: Settings Menu Replay Gray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

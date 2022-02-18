@@ -7,6 +7,9 @@ public class SettingsUI : MonoBehaviour
     //private LevelLoader levelLoader;
     //public LevelLoader LevelLoader { get { return levelLoader == null ? levelLoader = FindObjectOfType<LevelLoader>() : levelLoader; } }
 
+    private UIManager uiManager;
+    public UIManager UIManager { get { return uiManager == null ? uiManager = FindObjectOfType<UIManager>() : uiManager; } }
+
     public static bool IsSoundOn;
     public static bool IsVibrationOn;
 
@@ -183,10 +186,14 @@ public class SettingsUI : MonoBehaviour
     public void ConfirmReplay()
     {
         Time.timeScale = 1f;
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //LevelLoader.LoadLevel(LevelHandler.CurrentLevel);
+        UIManager.ChangeScene();
+        Debug.Log("Replay Confirmed!");
     }
-    public void DeclineReplay() => replayConfirmationObj.GetComponent<Animator>().SetTrigger(closeID);
+    public void DeclineReplay()
+    {
+        replayConfirmationObj.GetComponent<Animator>().SetTrigger(closeID);
+        Debug.Log("Replay Canceled!");
+    }
     public void CloseReplayConfirmationMenu()
     {
         replayConfirmationObj.SetActive(false);

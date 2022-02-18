@@ -11,6 +11,7 @@ public class AudioHandler
         Player_Land,
         Pickup_Coin,
         Pickup_Trap,
+        Button_Click,
         Testing_PlayerMove
     }
 
@@ -28,7 +29,7 @@ public class AudioHandler
 
     public static void PlayAudio(AudioType audioType, Vector3 position)
     {
-        //if (!SettingsMenu.IsSoundOn) return;
+        if (!SettingsUI.IsSoundOn) return;
 
         if (CanPlayAudio(audioType))
         {
@@ -45,7 +46,7 @@ public class AudioHandler
 
     public static void PlayAudio(AudioType audioType, float volume = 1f, float pitch = 1f)
     {
-        //if (!SettingsMenu.IsSoundOn) return;
+        if (!SettingsUI.IsSoundOn) return;
 
         if (CanPlayAudio(audioType))
         {

@@ -15,7 +15,6 @@ public class LevelManager : MonoBehaviour
         gameManager = GetComponent<GameManager>();
 
         Level = PlayerPrefs.GetInt("Level", 1);
-        currentLevel = Level;
 
         sceneTransition = FindObjectOfType<SceneTransition>();
     }
@@ -42,8 +41,10 @@ public class LevelManager : MonoBehaviour
     private void ChangeScene()
     {
         if (GameManager.GameEnd == GameEnd.Fail)
-            sceneTransition.LoadLevel(currentLevel);
-        else if (GameManager.GameEnd == GameEnd.Win || GameManager.GameState == GameState.WaitingToStart)
+            sceneTransition.LoadLevel(SceneManager.GetActiveScene().buildIndex);
+        //else if (GameManager.GameEnd == GameEnd.Win || GameManager.GameState == GameState.WaitingToStart)
+        //    sceneTransition.LoadLevel(GetSceneBuildIndexToBeLoaded());
+        else
             sceneTransition.LoadLevel(GetSceneBuildIndexToBeLoaded());
 
         //if (sceneTransition == null)

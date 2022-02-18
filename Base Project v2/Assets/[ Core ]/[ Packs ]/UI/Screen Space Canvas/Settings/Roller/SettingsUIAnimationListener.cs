@@ -19,5 +19,5 @@ public class SettingsUIAnimationListener : MonoBehaviour
     private void Confirm() => SettingsMenu.ConfirmReplay();
     private void Decline() => SettingsMenu.DeclineReplay();
     private void Disable() => SettingsMenu.CloseReplayConfirmationMenu();
-    public void PlaySound() { /* Add button sound if you want.*/ }
+    public void PlaySound() => AudioHandler.PlayAudio(AudioHandler.AudioType.Button_Click);
 }

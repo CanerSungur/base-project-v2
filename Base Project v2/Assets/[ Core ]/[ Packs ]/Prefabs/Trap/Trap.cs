@@ -1,4 +1,5 @@
 using UnityEngine;
+using ZestGames.Vibrate;
 
 public class Trap : CollectableBase
 {
@@ -20,6 +21,8 @@ public class Trap : CollectableBase
         coll.enabled = false;
 
         AudioHandler.PlayAudio(AudioHandler.AudioType.Pickup_Trap);
+        if (Vibration.HasVibrator())
+            Vibration.VibratePredefined(0, true);
 
         if (CollectStyle == CollectStyle.OnSite)
         {
