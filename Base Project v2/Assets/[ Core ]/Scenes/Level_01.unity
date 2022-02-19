@@ -3856,22 +3856,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1831071731}
     m_Modifications:
-    - target: {fileID: 867666120, guid: 61eab7cd14a74014c866f949598224a1, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 26775.205
-      objectReference: {fileID: 0}
-    - target: {fileID: 867666120, guid: 61eab7cd14a74014c866f949598224a1, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 26775.205
-      objectReference: {fileID: 0}
-    - target: {fileID: 867666120, guid: 61eab7cd14a74014c866f949598224a1, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.0005
-      objectReference: {fileID: 0}
-    - target: {fileID: 867666120, guid: 61eab7cd14a74014c866f949598224a1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.0009
-      objectReference: {fileID: 0}
     - target: {fileID: 6344758413315274136, guid: 61eab7cd14a74014c866f949598224a1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -4644,6 +4628,10 @@ PrefabInstance:
     - target: {fileID: 7919886774491599288, guid: 04181fb6dbcb71b4caf0abc81070ce4b, type: 3}
       propertyPath: m_Name
       value: Settings Menu Replay Colored
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919886774491599288, guid: 04181fb6dbcb71b4caf0abc81070ce4b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7919886774491599292, guid: 04181fb6dbcb71b4caf0abc81070ce4b, type: 3}
       propertyPath: m_Pivot.x
