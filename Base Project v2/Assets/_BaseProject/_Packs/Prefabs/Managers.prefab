@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8054539559921111782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8054539559921111783}
+  - component: {fileID: 8054539559921111790}
+  - component: {fileID: 8054539559921111787}
+  - component: {fileID: 8054539559921111786}
+  - component: {fileID: 8054539559921111781}
+  - component: {fileID: 8054539559921111785}
+  - component: {fileID: 8054539559921111780}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8054539559921111783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8054539559921111790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b4613a01089cd4fa4595962750f08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _WinType: 1
+  coinNeededToWin: 5
+  trapNeededTofail: 2
+  phaseCountToWin: 4
+  coinNeededForPhase_1: 1
+  coinNeededForPhase_2: 3
+  coinNeededForPhase_3: 4
+  gameEndAfterDelay: 1
+--- !u!114 &8054539559921111787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59179fff17258049a3c5c463bb411ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8054539559921111786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6fbbaae40ea0e14294fa576d938a804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  touchToStart: {fileID: 0}
+  hud: {fileID: 0}
+  levelSuccess: {fileID: 0}
+  levelFail: {fileID: 0}
+  settings: {fileID: 0}
+  winScreenDelay: 1
+  failScreenDelay: 1
+--- !u!114 &8054539559921111781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e626a0848774d6b46851db74d8ab0d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8054539559921111785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72aef0c10ae8ac841be87a3286bc69e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPrefab: {fileID: 5031208824877614778, guid: ffc0d63ec4260c640b0eb77c0ca931c6, type: 3}
+  trapPrefab: {fileID: 2049570378201314259, guid: b6706107e5b82ac42aab632c87ebe59b, type: 3}
+  coinAmountInScene: 0
+  trapAmountInScene: 0
+  coinRewardPrefab: {fileID: 525355256040030371, guid: e467daadedc85ce498e3d5f28bd13b85, type: 3}
+  spawnPointOffset: 2.75
+--- !u!114 &8054539559921111780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054539559921111782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56a715e7cd36f7b4a8b463f363910e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
